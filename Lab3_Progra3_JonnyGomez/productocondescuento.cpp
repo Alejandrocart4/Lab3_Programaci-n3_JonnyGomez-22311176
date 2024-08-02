@@ -1,13 +1,16 @@
 #include "productocondescuento.h"
 
-ProductoConDescuento::ProductoConDescuento(const std::string& nombre, double precio, double descuento)
+// Constructor
+productocondescuento::productocondescuento(const QString& nombre, double precio, double descuento)
     : Producto(nombre, precio), descuento(descuento) {}
 
-double ProductoConDescuento::calcularValorTotal() const {
-    return precio * (1.0 - descuento / 100.0);
+// Implementación del método calcularValorTotal() considerando el descuento
+double productocondescuento::calcularValorTotal() const {
+    return precio - (precio * descuento / 100);
 }
 
-void ProductoConDescuento::mostrarInformacion() const {
+// Implementación del método mostrarInformacion() que muestra el descuento
+void productocondescuento::mostrarInformacion() const {
     Producto::mostrarInformacion();
-    //std::cout << "Descuento aplicado: " << descuento << "%" << std::endl;
+    std::cout << "Descuento: " << descuento << "%" << std::endl;
 }

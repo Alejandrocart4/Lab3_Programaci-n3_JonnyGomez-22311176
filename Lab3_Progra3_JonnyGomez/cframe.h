@@ -17,10 +17,6 @@ public:
     cframe(QWidget *parent = nullptr);
     ~cframe();
 
-
-private slots:
-    void on_Agregar_Item_clicked();
-
 private:
     Ui::cframe *ui;
 };

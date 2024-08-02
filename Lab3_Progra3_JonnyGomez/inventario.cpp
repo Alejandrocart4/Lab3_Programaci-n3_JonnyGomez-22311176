@@ -1,36 +1,32 @@
 #include "inventario.h"
-#include <algorithm> // Para std::find_if
 
-
-void Inventario::agregarProducto(Producto* producto) {
-    productos.push_back(producto);
+// Método para agregar un producto al inventario
+void inventario::agregarProducto(Producto* producto) {
+    productos.push_back(std::unique_ptr<Producto>(producto));
 }
 
-void Inventario::eliminarProducto(const std::string& nombre) {
-    for (auto it = productos.begin(); it != productos.end(); ++it) {
-        if ((*it)->getNombre() == nombre) {
-            delete *it;
-            productos.erase(it);
-            break; // Importante: salir del bucle después de eliminar el producto
-        }
-    }
+// Método para eliminar un producto por nombre
+void inventario::eliminarProducto(const std::string& nombre) {
+    auto it = std::remove_if(productos.begin(), productos.end(),
+                             [&nombre](const std::unique_ptr<Producto>& producto) {
+                                 return producto->getNombre().toStdString() == nombre;
+                             });
+    productos.erase(it, productos.end());
 }
 
-
-void Inventario::mostrarInventario() const {
-   // std::cout << "Inventario:\n";
+// Método para mostrar la información de todos los productos
+void inventario::mostrarInventario() const {
     for (const auto& producto : productos) {
-     //   std::cout << "Nombre: " << producto->nombre_ << "\n";
-       // std::cout << "Precio: " << producto->precio_ << "\n";
-        producto->mostrarInformacion(); // Llama al método específico de cada producto
-        //std::cout << "------------------------\n";
+        producto->mostrarInformacion();
+        std::cout << "---------------------" << std::endl;
     }
 }
 
-double Inventario::calcularValorInventario() const {
-    double valorTotal = 0.0;
+// Método para calcular el valor total del inventario
+double inventario::calcularValorInventario() const {
+    double total = 0.0;
     for (const auto& producto : productos) {
-        valorTotal += producto->calcularValorTotal();
+        total += producto->calcularValorTotal();
     }
-    return valorTotal;
+    return total;
 }

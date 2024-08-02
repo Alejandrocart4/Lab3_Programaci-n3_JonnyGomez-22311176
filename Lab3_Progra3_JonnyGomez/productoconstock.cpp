@@ -1,13 +1,16 @@
 #include "productoconstock.h"
 
-ProductoConStock::ProductoConStock(const std::string& nombre, double precio, int cantidad)
+// Constructor
+productoconstock::productoconstock(const QString& nombre, double precio, int cantidad)
     : Producto(nombre, precio), cantidad(cantidad) {}
 
-double ProductoConStock::calcularValorTotal() const {
+// Implementación del método calcularValorTotal() multiplicando el precio por la cantidad
+double productoconstock::calcularValorTotal() const {
     return precio * cantidad;
 }
 
-void ProductoConStock::mostrarInformacion() const {
+// Implementación del método mostrarInformacion() que muestra la cantidad disponible
+void productoconstock::mostrarInformacion() const {
     Producto::mostrarInformacion();
-    //std::cout << "Cantidad disponible: " << cantidad << std::endl;
+    std::cout << "Cantidad disponible: " << cantidad << std::endl;
 }

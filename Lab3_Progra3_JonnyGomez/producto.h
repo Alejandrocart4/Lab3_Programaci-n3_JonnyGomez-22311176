@@ -1,24 +1,27 @@
 #ifndef PRODUCTO_H
 #define PRODUCTO_H
 
-#include <string>
+#include <QString>
+#include <iostream>
 
 class Producto
 {
-protected:
-    std::string nombre;
-    double precio;
-    std::string descripcion;
 public:
-    Producto(const std::string& nombre, double precio);
-    virtual ~Producto();
+    Producto(const QString& nombre, double precio);
 
+    // Método virtual puro para calcular el valor total
     virtual double calcularValorTotal() const = 0;
+
+    // Método virtual para mostrar la información
     virtual void mostrarInformacion() const;
 
-    std::string getNombre() const {
-        return nombre;
-    }
+    QString getNombre();
+    // Destructor virtual
+    virtual ~Producto();
+
+protected:
+    QString nombre;
+    double precio;
 };
 
 #endif // PRODUCTO_H

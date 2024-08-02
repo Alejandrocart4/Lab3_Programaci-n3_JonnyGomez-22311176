@@ -1,18 +1,22 @@
 #ifndef PRODUCTOCONSTOCK_H
 #define PRODUCTOCONSTOCK_H
 
-#include "producto.h"
+#include "Producto.h"
 
-class ProductoConStock : public Producto
+class productoconstock : Producto
 {
-private:
-    int cantidad;
-
 public:
-    ProductoConStock(const std::string& nombre, double precio, int cantidad);
-    double calcularValorTotal() const override;
-    void mostrarInformacion() const override;
-};
+    // Constructor
+    productoconstock(const QString& nombre, double precio, int cantidad);
 
+    // Implementación del método calcularValorTotal() multiplicando el precio por la cantidad
+    double calcularValorTotal() const override;
+
+    // Implementación del método mostrarInformacion() que muestra la cantidad disponible
+    void mostrarInformacion() const override;
+
+private:
+    int cantidad;  // Cantidad en stock del producto
+};
 
 #endif // PRODUCTOCONSTOCK_H
