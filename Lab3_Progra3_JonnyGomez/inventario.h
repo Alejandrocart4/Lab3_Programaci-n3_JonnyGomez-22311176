@@ -1,30 +1,53 @@
 #ifndef INVENTARIO_H
 #define INVENTARIO_H
 
+#include "Producto.h"
 #include <vector>
 #include <memory>
-#include <iostream>
 #include <algorithm>
-#include <string>
-#include "Producto.h"
+#include <QString>
+#include <QTextEdit>
 
-class inventario
-{
-public:
-        // Método para agregar un producto al inventario
-    void agregarProducto(Producto* producto);
-
-    // Método para eliminar un producto por nombre
-    void eliminarProducto(const std::string& nombre);
-
-    // Método para mostrar la información de todos los productos
-    void mostrarInventario() const;
-
-    // Método para calcular el valor total del inventario
-    double calcularValorInventario() const;
-
+class Inventario {
 private:
-    std::vector<std::unique_ptr<Producto>> productos;  // Vector de punteros a Producto
+    std::vector<std::unique_ptr<Producto>> productos;
+
+public:
+    void agregarProducto(std::unique_ptr<Producto> producto) {
+        productos.push_back(std::move(producto));
+    }
+
+    bool eliminarProducto(const std::string& nombre) {
+        auto it = std::remove_if(productos.begin(), productos.end(),
+                                 [&nombre](const std::unique_ptr<Producto>& producto) {
+                                     return producto->getNombre() == nombre;
+                                 });
+
+        bool eliminado = it != productos.end();
+        productos.erase(it, productos.end());
+        return eliminado;
+    }
+
+    size_t obtenerTamanioInventario() const {
+        return productos.size();
+    }
+
+    void mostrarInventario(QTextEdit* textEdit) const {
+        textEdit->clear();
+
+        for (const auto& producto : productos) {
+            producto->mostrarInformacion(textEdit);
+        }
+    }
+
+
+    double calcularValorInventario() const {
+        double valorTotal = 0.0;
+        for (const auto& producto : productos) {
+            valorTotal += producto->calcularValorTotal();
+        }
+        return valorTotal;
+    }
 };
 
 #endif // INVENTARIO_H
