@@ -143,3 +143,5 @@ void cframe::on_btn_total_invent_clicked()
     mostrarValorTotalInventario();
 }
 
+// finishted
+
