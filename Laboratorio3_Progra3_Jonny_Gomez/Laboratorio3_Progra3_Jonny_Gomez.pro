@@ -9,12 +9,8 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    inventario.cpp \
     main.cpp \
-    cframe.cpp \
-    producto.cpp \
-    productocondescuento.cpp \
-    productoconstock.cpp
+    cframe.cpp
 
 HEADERS += \
     cframe.h \
